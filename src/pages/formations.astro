@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CourseCard from '../components/CourseCard.astro';
+
+// Importer les formations depuis le fichier JSON
+
+import formations from '../data/formations.json';
+---
+
+<Layout title="Nos Formations">
+	<section class="py-12 text-center">
+		<h1 class="text-4xl font-bold">Nos Formations</h1>
+		<p class="mt-4 text-lg">
+			Choisissez la formation qui correspond à votre niveau et développez vos
+			compétences.
+		</p>
+	</section>
+
+	<section
+		class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		{
+			formations.map((formation) => (
+				<CourseCard
+					title={formation.title}
+					description={formation.description}
+					duration={formation.duration}
+					price={formation.price}
+				/>
+			))
+		}
+	</section>
+</Layout>

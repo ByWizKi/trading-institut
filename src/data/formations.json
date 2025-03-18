@@ -1,0 +1,23 @@
+[
+	{
+		"id": 1,
+		"title": "Formation Trading Débutant",
+		"description": "Apprenez les bases du trading et comment investir intelligemment.",
+		"duration": "4 semaines",
+		"price": "499€"
+	},
+	{
+		"id": 2,
+		"title": "Analyse Technique Avancée",
+		"description": "Développez vos compétences en analyse technique et en stratégies avancées.",
+		"duration": "6 semaines",
+		"price": "799€"
+	},
+	{
+		"id": 3,
+		"title": "Trading sur les Cryptos",
+		"description": "Découvrez les stratégies pour trader efficacement sur les cryptomonnaies.",
+		"duration": "5 semaines",
+		"price": "699€"
+	}
+]

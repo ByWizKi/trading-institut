@@ -1,0 +1,18 @@
+---
+export let title;
+export let description;
+export let duration;
+export let price;
+---
+
+<div class="p-6 border rounded-lg shadow-lg bg-white">
+	<h3 class="text-xl font-semibold">{{ title }}</h3>
+	<p class="mt-2 text-gray-600">{{ description }}</p>
+	<p class="mt-2 text-gray-800 font-bold">Durée : {{ duration }}</p>
+	<p class="mt-2 text-green-600 font-bold">Prix : {{ price }}</p>
+	<a
+		href="/contact"
+		class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+		S'inscrire
+	</a>
+</div>

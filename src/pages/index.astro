@@ -1,11 +1,15 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Accueil - Trading Institut">
+	<section class="text-center py-12">
+		<h1 class="text-4xl font-bold">Bienvenue chez Trading Institut</h1>
+		<p class="mt-4 text-lg">Apprenez à trader avec les meilleurs experts.</p>
+		<a
+			href="/formations"
+			class="mt-6 inline-block bg-green-600 text-white px-6 py-3 rounded-lg">
+			Découvrir nos formations
+		</a>
+	</section>
 </Layout>

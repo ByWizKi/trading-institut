@@ -10,6 +10,7 @@ const mdParser = new MarkdownIt({
 	breaks: true,
 });
 
+
 mdParser.renderer.rules.paragraph_open = () =>
 	`<p class="mb-4 text-gray-800 leading-relaxed">`;
 mdParser.renderer.rules.heading_open = (tokens, idx) => {
@@ -26,7 +27,7 @@ mdParser.renderer.rules.heading_open = (tokens, idx) => {
 	return `<${level} class="${classes}">`;
 };
 mdParser.renderer.rules.image = (tokens, idx) => {
-	const src = tokens[idx].attrs?.find(attr => attr[0] === 'src')?.[1] || '';
+	const src = tokens[idx].attrs?.find((attr) => attr[0] === 'src')?.[1] || '';
 	const alt = tokens[idx].content || '';
 	return `<img class="rounded-lg shadow-lg w-full my-6" src="${src}" alt="${alt}" />`;
 };
@@ -52,7 +53,9 @@ const confirmPushButton = document.getElementById(
 const imageListContainer = document.getElementById(
 	'imageListContainer'
 ) as HTMLDivElement | null;
-const imageList = document.getElementById('imageList') as HTMLUListElement | null;
+const imageList = document.getElementById(
+	'imageList'
+) as HTMLUListElement | null;
 
 // Liste des images importées dans la session actuelle
 const importedImages: { name: string; path: string; sha: string }[] = [];
@@ -60,7 +63,7 @@ const importedImages: { name: string; path: string; sha: string }[] = [];
 // Liste des images locales pour la session actuelle
 const localImages: { name: string; file: File }[] = [];
 
-// Récupération des infos GitHub depuis `env.json`
+// Récupération des infos GitHub depuis `import.meta.env`
 const getGitHubConfig = async (): Promise<{
 	GITHUB_REPO: string;
 	GITHUB_BRANCH: string;
@@ -69,8 +72,14 @@ const getGitHubConfig = async (): Promise<{
 	GITHUB_TOKEN: string;
 	GITHUB_USERNAME: string;
 }> => {
-	const response = await fetch('/env.json');
-	return await response.json();
+	return {
+		GITHUB_REPO: import.meta.env.PUBLIC_GITHUB_REPO,
+		GITHUB_BRANCH: import.meta.env.PUBLIC_GITHUB_BRANCH,
+		GITHUB_IMAGE_FOLDER: import.meta.env.PUBLIC_GITHUB_IMAGE_FOLDER,
+		GITHUB_FOLDER: import.meta.env.PUBLIC_GITHUB_FOLDER,
+		GITHUB_TOKEN: import.meta.env.PUBLIC_GITHUB_TOKEN,
+		GITHUB_USERNAME: import.meta.env.PUBLIC_GITHUB_USERNAME,
+	};
 };
 
 // Générer un nom de fichier unique avec date et heure
@@ -262,7 +271,10 @@ imageUploadInput?.addEventListener('change', async (event) => {
 });
 
 // ✅ Fonction pour supprimer une image locale et sur GitHub
-async function deleteLocalImage(image: { name: string; file: File }): Promise<void> {
+async function deleteLocalImage(image: {
+	name: string;
+	file: File;
+}): Promise<void> {
 	if (confirm(`Êtes-vous sûr de vouloir supprimer l'image "${image.name}" ?`)) {
 		const index = localImages.findIndex((img) => img.name === image.name);
 		if (index !== -1) {

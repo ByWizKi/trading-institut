@@ -12,6 +12,9 @@
 	"dependencies": {
 		"@tailwindcss/vite": "^4.0.14",
 		"astro": "^5.5.2",
+		"easymde": "^2.20.0",
+		"formidable": "^3.5.2",
+		"markdown-it": "^14.1.0",
 		"tailwindcss": "^4.0.14"
 	},
 	"devDependencies": {

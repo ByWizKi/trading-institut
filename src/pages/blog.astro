@@ -4,66 +4,68 @@ import fs from 'fs';
 import path from 'path';
 
 interface Article {
-  title: string;
-  date: string;
-  author: string;
-  image: string;
-  content: string;
+	title: string;
+	date: string;
+	author: string;
+	image: string;
+	content: string;
 }
 
 // Charger les articles Markdown
-const blogDir = './src/content/blog';
+const blogDir = 'content/articles';
 const blogFiles = fs.readdirSync(blogDir);
 const articles: Article[] = blogFiles.map((file) => {
-  const content = fs.readFileSync(path.join(blogDir, file), 'utf-8');
-  const metadata = content
-    .match(/---\n([\s\S]+?)\n---/)?.[1]
-    .split('\n')
-    .reduce((acc: Record<string, string>, line: string) => {
-      const [key, value] = line.split(':').map((str) => str.trim());
-      acc[key] = value;
-      return acc;
-    }, {});
+	const content = fs.readFileSync(path.join(blogDir, file), 'utf-8');
+	const metadata = content
+		.match(/---\n([\s\S]+?)\n---/)?.[1]
+		.split('\n')
+		.reduce((acc: Record<string, string>, line: string) => {
+			const [key, value] = line.split(':').map((str) => str.trim());
+			acc[key] = value;
+			return acc;
+		}, {});
 
-  if (!metadata) {
-    throw new Error(`Metadata is missing in file: ${file}`);
-  }
+	if (!metadata) {
+		throw new Error(`Metadata is missing in file: ${file}`);
+	}
 
-  return {
-    title: metadata.title || 'Untitled',
-    date: metadata.date || 'Unknown date',
-    author: metadata.author || 'Unknown author',
-    image: metadata.image || '/default-image.jpg',
-    content: content.replace(/---\n[\s\S]+?\n---/, '').trim(),
-  };
+	return {
+		title: metadata.title || 'Untitled',
+		date: metadata.date || 'Unknown date',
+		author: metadata.author || 'Unknown author',
+		image: metadata.image || '/default-image.jpg',
+		content: content.replace(/---\n[\s\S]+?\n---/, '').trim(),
+	};
 });
 ---
 
 <Layout title="Blog - Trading Institut">
-  <section class="py-12 text-center">
-    <h1 class="text-4xl font-bold">Nos Articles de Blog</h1>
-    <p class="mt-4 text-lg">
-      Découvrez nos conseils et analyses sur le trading.
-    </p>
-  </section>
+	<section class="py-12 text-center">
+		<h1 class="text-4xl font-bold">Nos Articles de Blog</h1>
+		<p class="mt-4 text-lg">
+			Découvrez nos conseils et analyses sur le trading.
+		</p>
+	</section>
 
-  <section
-    class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {articles.map((article) => (
-      <article class="bg-white p-6 rounded-lg shadow-lg">
-        <img
-          src={article.image}
-          alt={article.title}
-          class="w-full h-48 object-cover"
-        />
-        <h3 class="text-xl font-semibold">{article.title}</h3>
-        <p class="text-gray-600">
-          {article.date} - {article.author}
-        </p>
-        <p class="mt-2 text-gray-800">
-          {article.content.substring(0, 100)}...
-        </p>
-      </article>
-    ))}
-  </section>
+	<section
+		class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		{
+			articles.map((article) => (
+				<article class="bg-white p-6 rounded-lg shadow-lg">
+					<img
+						src={article.image}
+						alt={article.title}
+						class="w-full h-48 object-cover"
+					/>
+					<h3 class="text-xl font-semibold">{article.title}</h3>
+					<p class="text-gray-600">
+						{article.date} - {article.author}
+					</p>
+					<p class="mt-2 text-gray-800">
+						{article.content.substring(0, 100)}...
+					</p>
+				</article>
+			))
+		}
+	</section>
 </Layout>

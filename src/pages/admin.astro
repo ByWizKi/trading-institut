@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Admin - Éditeur Markdown">
+	<section class="p-8 max-w-4xl mx-auto">
+		<h1 class="text-4xl font-bold mb-8 text-center text-gray-900">
+			📝 Rédiger un Article
+		</h1>
+
+		<!-- ÉDITEUR MARKDOWN -->
+		<div class="bg-white p-6 rounded-lg shadow-lg">
+			<h2 class="text-2xl font-semibold mb-4 text-gray-800">
+				Éditeur Markdown
+			</h2>
+
+			<!-- Champ pour uploader une image unique -->
+			<div class="mb-4">
+				<label class="block font-semibold mb-2 text-gray-800"
+					>Uploader une image :</label
+				>
+				<input
+					type="file"
+					id="imageUpload"
+					accept="image/*"
+					class="border border-gray-300 p-2 rounded-md w-full"
+				/>
+			</div>
+
+			<!-- Liste des images locales -->
+			<div id="imageListContainer" class="mb-4 hidden">
+				<h3 class="text-lg font-semibold mb-2 text-gray-800">
+					Images locales :
+				</h3>
+				<ul id="imageList" class="list-disc pl-5 space-y-2"></ul>
+			</div>
+
+			<textarea id="editor"></textarea>
+
+			<div class="flex justify-end gap-4 mt-6">
+				<button
+					id="pushToGitButton"
+					class="bg-blue-600 text-white py-2 px-6 rounded-md font-semibold shadow-md hover:bg-blue-700 transition">
+					🚀 Push sur GitHub
+				</button>
+				<button
+					id="confirmPushButton"
+					class="bg-green-600 text-white py-2 px-6 rounded-md font-semibold shadow-md hover:bg-green-700 transition hidden">
+					✅ Confirmer l'envoi
+				</button>
+			</div>
+		</div>
+	</section>
+
+	<script type="module" src="/src/scripts/editor.ts"></script>
+</Layout>

@@ -10,46 +10,46 @@ Ajoutez ces alias une seule fois en exécutant ces commandes dans votre terminal
 
 ```sh
 # 🔄 Initialiser Git Flow
-git config --global alias.flow-init "!git flow init -d"
+git config --global alias.flow-init '!git flow init -d'
 
 # 🌿 Création d’une nouvelle branche feature
-git config --global alias.feature-start "!git flow feature start"
+git config --global alias.feature-start '!git flow feature start'
 
 # 🔀 Fin d’une feature et merge dans develop
-git config --global alias.feature-finish "!git flow feature finish"
+git config --global alias.feature-finish '!git flow feature finish'
 
 # 🛠 Création d’une nouvelle branche hotfix
-git config --global alias.hotfix-start "!git flow hotfix start"
+git config --global alias.hotfix-start '!git flow hotfix start'
 
 # 🛠 Fin d’un hotfix et merge dans develop & main
-git config --global alias.hotfix-finish "!git flow hotfix finish"
+git config --global alias.hotfix-finish '!git flow hotfix finish'
 
 # 🎉 Lancer une release
-git config --global alias.release-start "!git flow release start"
+git config --global alias.release-start '!git flow release start'
 
 # 🎉 Finir une release (merge + tag)
-git config --global alias.release-finish "!git flow release finish"
+git config --global alias.release-finish '!git flow release finish'
 
 # 📂 Vérifier les branches en cours dans Git Flow
-git config --global alias.flow-status "!git branch --list"
+git config --global alias.flow-status '!git branch --list'
 
 # 🚀 Push d'une feature en cours sur le dépôt distant
-git config --global alias.feature-push "!git push origin feature/"
+git config --global alias.feature-push '!git push origin feature/'
 
 # 🔄 Récupérer toutes les branches distant et locales de Git Flow
-git config --global alias.flow-fetch "!git fetch --all --prune"
+git config --global alias.flow-fetch '!git fetch --all --prune'
 
 # 🚀 Pousser la branche develop après avoir fini une feature
-git config --global alias.dev-push "!git push origin develop"
+git config --global alias.dev-push '!git push origin develop'
 
 # 🚀 Pousser la branche main après avoir terminé une release
-git config --global alias.main-push "!git push origin main"
+git config --global alias.main-push '!git push origin main'
 
 # 📦 Récupérer et fusionner les modifications de develop
-git config --global alias.dev-pull "!git pull origin develop"
+git config --global alias.dev-pull '!git pull origin develop'
 
 # 🔥 Supprimer une branche feature terminée
-git config --global alias.feature-delete "!git branch -d feature/"
+git config --global alias.feature-delete '!git branch -d feature/'
 ```
 
 ---

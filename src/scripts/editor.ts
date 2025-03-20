@@ -10,26 +10,46 @@ const mdParser = new MarkdownIt({
 	breaks: true,
 });
 
-
-mdParser.renderer.rules.paragraph_open = () =>
-	`<p class="mb-4 text-gray-800 leading-relaxed">`;
-mdParser.renderer.rules.heading_open = (tokens, idx) => {
-	const level = tokens[idx].tag;
-	const classes =
-		{
-			h1: 'text-3xl font-bold mt-6 mb-4 text-gray-900',
-			h2: 'text-2xl font-semibold mt-6 mb-3 text-gray-800',
-			h3: 'text-xl font-semibold mt-4 mb-2 text-gray-700',
-			h4: 'text-lg font-medium mt-4 mb-2 text-gray-600',
-			h5: 'text-base font-medium mt-4 mb-2 text-gray-500',
-			h6: 'text-sm font-medium mt-4 mb-2 text-gray-400',
-		}[level] || '';
-	return `<${level} class="${classes}">`;
-};
-mdParser.renderer.rules.image = (tokens, idx) => {
-	const src = tokens[idx].attrs?.find((attr) => attr[0] === 'src')?.[1] || '';
-	const alt = tokens[idx].content || '';
-	return `<img class="rounded-lg shadow-lg w-full my-6" src="${src}" alt="${alt}" />`;
+// Custom rendering rules for Markdown elements
+mdParser.renderer.rules = {
+	...mdParser.renderer.rules,
+	paragraph_open: () => `<p class="mb-4 text-gray-800 leading-relaxed">`,
+	heading_open: (tokens, idx) => {
+		const level = tokens[idx].tag;
+		const classes =
+			{
+				h1: 'text-3xl font-bold mt-6 mb-4 text-gray-900',
+				h2: 'text-2xl font-semibold mt-6 mb-3 text-gray-800',
+				h3: 'text-xl font-semibold mt-4 mb-2 text-gray-700',
+				h4: 'text-lg font-medium mt-4 mb-2 text-gray-600',
+				h5: 'text-base font-medium mt-4 mb-2 text-gray-500',
+				h6: 'text-sm font-medium mt-4 mb-2 text-gray-400',
+			}[level] || '';
+		return `<${level} class="${classes}">`;
+	},
+	image: (tokens, idx) => {
+		const src = tokens[idx].attrs?.find((attr) => attr[0] === 'src')?.[1] || '';
+		const alt = tokens[idx].content || '';
+		return `<img class="rounded-lg shadow-lg w-full my-6" src="${src}" alt="${alt}" />`;
+	},
+	bullet_list_open: () => `<ul class="list-disc text-gray-800 pl-6">`,
+	ordered_list_open: () => `<ol class="list-decimal text-gray-800 pl-6">`,
+	list_item_open: () => `<li class="leading-relaxed">`,
+	table_open: () =>
+		`<table class="table-auto border-collapse border border-gray-300 w-full my-4">`,
+	thead_open: () => `<thead class="bg-gray-100">`,
+	th_open: () => `<th class="border border-gray-300 px-4 py-2 text-left">`,
+	tbody_open: () => `<tbody>`,
+	tr_open: () => `<tr>`,
+	td_open: () => `<td class="border border-gray-300 px-4 py-2">`,
+	em_open: () => `<em class="italic text-gray-600">`,
+	em_close: () => `</em>`,
+	link_open: (tokens, idx) => {
+		const href =
+			tokens[idx].attrs?.find((attr) => attr[0] === 'href')?.[1] || '';
+		return `<a href="${href}" class="text-blue-600 hover:underline">`;
+	},
+	link_close: () => `</a>`,
 };
 
 // Initialisation de l'éditeur Markdown avec prévisualisation améliorée
@@ -37,7 +57,9 @@ const editor = new EasyMDE({
 	element: document.getElementById('editor') as HTMLTextAreaElement,
 	spellChecker: false,
 	sideBySideFullscreen: false,
-	previewRender: (markdown: string) => mdParser.render(markdown),
+	previewRender: (markdown) => mdParser.render(markdown),
+	lineNumbers: true,
+	showIcons: ['code', 'table'],
 });
 
 // Récupération des éléments HTML
